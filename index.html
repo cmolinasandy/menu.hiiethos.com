@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hawaiian Ethos Digital Menu - Flower</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Tabletop.js/1.5.4/tabletop.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -53,47 +54,76 @@
   <div class="menu-section">
     <div class="menu-title">Flower</div>
     <div class="menu-subtitle">Big Buds & Popcorn Buds</div>
-
-    <table class="menu-table">
-      <tr><th>Brand</th><th>Strain</th><th>THCA</th><th>Eighth</th><th>Quarter</th><th>Half</th><th>Ounce</th><th>Loc</th></tr>
-
-      <!-- Hawaiian Ethos -->
-      <tr><td>Hawaiian Ethos</td><td>MMXX</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Hawaiian Ethos</td><td>Millions of Peaches (P)</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Hawaiian Ethos</td><td>Gush Mints</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(h)</td></tr>
-      <tr><td>Hawaiian Ethos</td><td>White Widow</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(h)</td></tr>
-
-      <!-- Aloha Green -->
-      <tr><td>Aloha Green</td><td>The Spice</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Aloha Green</td><td>Super Lemon Haze</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Aloha Green</td><td>The Yeti</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Aloha Green</td><td>Banana Daiquiri</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Aloha Green</td><td>Girl Crush</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Aloha Green</td><td>Iridescent</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Aloha Green</td><td>Cherry Kush Mints</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(h)</td></tr>
-
-      <!-- Cure Oahu -->
-      <tr><td>Cure Oahu</td><td>Hella Jelly</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Cure Oahu</td><td>Guava Cream</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Cure Oahu</td><td>Three Layer Cake (P)</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
-      <tr><td>Cure Oahu</td><td>Cherry Kush Mints (P)</td><td>21%</td><td>$51</td><td>$87</td><td>$167</td><td>$322</td><td>(i)</td></tr>
+    <table class="menu-table" id="flower-table">
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Strain</th>
+          <th>THCA</th>
+          <th>Eighth</th>
+          <th>Quarter</th>
+          <th>Half</th>
+          <th>Ounce</th>
+          <th>Loc</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </div>
 
   <div class="menu-section">
     <div class="menu-title">Pre-Rolls</div>
     <div class="menu-subtitle">5x per Pack, .5g Pre-Rolls</div>
-
-    <table class="menu-table">
-      <tr><th>Strain</th><th>THCA</th><th>Price</th><th>Loc</th></tr>
-      <tr><td>MMXX</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
-      <tr><td>Millions of Peaches</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
-      <tr><td>Gush Mints</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
-      <tr><td>White Widow</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
-      <tr><td>The Spice</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
-      <tr><td>Super Lemon Haze</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
-      <tr><td>The Yeti</td><td>21%</td><td>$36/Pack</td><td>(e)</td></tr>
+    <table class="menu-table" id="preroll-table">
+      <thead>
+        <tr>
+          <th>Strain</th>
+          <th>THCA</th>
+          <th>Price</th>
+          <th>Loc</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      Tabletop.init({
+        key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pubhtml',
+        callback: function(data, tabletop) {
+          const flowerTable = document.querySelector('#flower-table tbody');
+          const prerollTable = document.querySelector('#preroll-table tbody');
+
+          data.forEach(row => {
+            if (row.Type === 'Flower') {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${row.Brand}</td>
+                <td>${row.Strain}</td>
+                <td>${row.THCA}</td>
+                <td>${row.Eighth}</td>
+                <td>${row.Quarter}</td>
+                <td>${row.Half}</td>
+                <td>${row.Ounce}</td>
+                <td>${row.Loc}</td>
+              `;
+              flowerTable.appendChild(tr);
+            } else if (row.Type === 'Pre-Roll') {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${row.Strain}</td>
+                <td>${row.THCA}</td>
+                <td>${row.Price}</td>
+                <td>${row.Loc}</td>
+              `;
+              prerollTable.appendChild(tr);
+            }
+          });
+        },
+        simpleSheet: true
+      });
+    });
+  </script>
 </body>
 </html>
