@@ -56,7 +56,6 @@
     <table class="menu-table" id="flower-table">
       <thead>
         <tr>
-          <th>Brand</th>
           <th>Strain</th>
           <th>THCA</th>
           <th>Eighth</th>
@@ -108,7 +107,6 @@
         if (row.Type === 'Flower') {
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td>${row.Brand}</td>
             <td>${row.Strain}</td>
             <td>${formatPercent(row.THCA)}</td>
             <td>${formatPrice(row.Eighth)}</td>
