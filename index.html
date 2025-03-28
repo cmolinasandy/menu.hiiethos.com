@@ -70,6 +70,22 @@
     </table>
   </div>
 
+  <div class="menu-section">
+    <div class="menu-title">Pre-Rolls</div>
+    <div class="menu-subtitle">5x per Pack, .5g Pre-Rolls</div>
+    <table class="menu-table" id="preroll-table">
+      <thead>
+        <tr>
+          <th>Strain</th>
+          <th>THCA</th>
+          <th>Price</th>
+          <th>Loc</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
   <script>
     async function fetchCSVAndRender() {
       const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pub?output=csv';
@@ -83,6 +99,7 @@
       );
 
       const flowerTable = document.querySelector('#flower-table tbody');
+      const prerollTable = document.querySelector('#preroll-table tbody');
 
       const formatPrice = (value) => value ? `$${value}` : '';
       const formatPercent = (value) => value ? `${value}%` : '';
@@ -101,6 +118,15 @@
             <td>${row.Loc}</td>
           `;
           flowerTable.appendChild(tr);
+        } else if (row.Type === 'Pre-Roll') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Strain}</td>
+            <td>${formatPercent(row.THCA)}</td>
+            <td>${formatPrice(row.Price)}</td>
+            <td>${row.Loc}</td>
+          `;
+          prerollTable.appendChild(tr);
         }
       });
     }
