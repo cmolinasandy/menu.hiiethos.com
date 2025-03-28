@@ -47,6 +47,50 @@
     .menu-table th {
       color: #ccc;
     }
+	
+	/* This (below) is a block of classes*/
+	/* to explicitly control the width */
+	/* of the flower table columns */
+	
+	.col-flower-strain {
+  	  width: 100%;
+	}
+	.col-flower-total {
+  	  width: 60px;
+	}
+	.col-flower-eighth {
+  	  width: 60px;
+	}
+	.col-flower-quarter {
+  	  width: 60px;
+	}
+	.col-flower-half {
+  	  width: 60px;
+	}
+	.col-flower-ounce {
+  	  width: 60px;
+	}
+	.col-flower-effect {
+  	  width: 60px;
+	}
+	
+	/* This (below) is a block of classes*/
+	/* to explicitly control the width */
+	/* of the pre-roll table columns */
+	
+	.col-preroll-strain {
+  	  width: 100%;
+	}
+	.col-preroll-total {
+  	  width: 60px;
+	}
+	.col-preroll-eighth {
+  	  width: 60px;
+	}
+	.col-preroll-quarter {
+  	  width: 60px;
+	}
+	
   </style>
 </head>
 <body>
@@ -56,13 +100,13 @@
     <table class="menu-table" id="flower-table">
       <thead>
         <tr>
-          <th>Strain</th>
-          <th>Total</th>
-          <th>Eighth</th>
-          <th>Quarter</th>
-          <th>Half</th>
-          <th>Ounce</th>
-          <th>Effect</th>
+          <th class="col-flower-strain">Strain</th>
+          <th class="col-flower-total">Total</th>
+          <th class="col-flower-eighth">Eighth</th>
+          <th class="col-flower-quarter">Quarter</th>
+          <th class="col-flower-half">Half</th>
+          <th class="col-flower-ounce">Ounce</th>
+          <th class="col-flower-effect">Effect</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -75,10 +119,10 @@
     <table class="menu-table" id="preroll-table">
       <thead>
         <tr>
-          <th>Strain</th>
-          <th>Total</th>
-          <th>Price</th>
-          <th>Effect</th>
+          <th class="col-preroll-strain">Strain</th>
+          <th class="col-preroll-total">Total</th>
+          <th class="col-preroll-price">Price</th>
+          <th class="col-preroll-effect">Effect</th>
         </tr>
       </thead>
       <tbody></tbody>
