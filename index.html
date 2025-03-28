@@ -85,6 +85,7 @@
       const flowerTable = document.querySelector('#flower-table tbody');
 
       const formatPrice = (value) => value ? `$${value}` : '';
+      const formatPercent = (value) => value ? `${value}%` : '';
 
       data.forEach(row => {
         if (row.Type === 'Flower') {
@@ -92,7 +93,7 @@
           tr.innerHTML = `
             <td>${row.Brand}</td>
             <td>${row.Strain}</td>
-            <td>${row.THCA}</td>
+            <td>${formatPercent(row.THCA)}</td>
             <td>${formatPrice(row.Eighth)}</td>
             <td>${formatPrice(row.Quarter)}</td>
             <td>${formatPrice(row.Half)}</td>
