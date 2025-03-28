@@ -57,7 +57,7 @@
       <thead>
         <tr>
           <th>Strain</th>
-          <th>THCA</th>
+          <th>Total</th>
           <th>Eighth</th>
           <th>Quarter</th>
           <th>Half</th>
@@ -76,7 +76,7 @@
       <thead>
         <tr>
           <th>Strain</th>
-          <th>THCA</th>
+          <th>Total</th>
           <th>Price</th>
           <th>Effect</th>
         </tr>
@@ -108,7 +108,7 @@
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${row.Strain}</td>
-            <td>${formatPercent(row.THCA)}</td>
+            <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Eighth)}</td>
             <td>${formatPrice(row.Quarter)}</td>
             <td>${formatPrice(row.Half)}</td>
@@ -120,7 +120,7 @@
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${row.Strain}</td>
-            <td>${formatPercent(row.THCA)}</td>
+            <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Price)}</td>
             <td>${row.Effect}</td>
           `;
