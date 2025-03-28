@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hawaiian Ethos Digital Menu - Flower</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/jsoma/tabletop@master/src/tabletop.js"></script>
   <style>
     body {
       margin: 0;
@@ -88,85 +87,46 @@
   </div>
 
   <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      Tabletop.init({
-        key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pubhtml',
-        callback: function(data, tabletop) {
-          const flowerTable = document.querySelector('#flower-table tbody');
-          const prerollTable = document.querySelector('#preroll-table tbody');
+    async function fetchCSVAndRender() {
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pub?output=csv';
+      const response = await fetch(url);
+      const text = await response.text();
 
-          data.forEach(row => {
-            if (row.Type === 'Flower') {
-              const tr = document.createElement('tr');
-              tr.innerHTML = `
-                <td>${row.Brand}</td>
-                <td>${row.Strain}</td>
-                <td>${row.THCA}</td>
-                <td>${row.Eighth}</td>
-                <td>${row.Quarter}</td>
-                <td>${row.Half}</td>
-                <td>${row.Ounce}</td>
-                <td>${row.Loc}</td>
-              `;
-              flowerTable.appendChild(tr);
-            } else if (row.Type === 'Pre-Roll') {
-              const tr = document.createElement('tr');
-              tr.innerHTML = `
-                <td>${row.Strain}</td>
-                <td>${row.THCA}</td>
-                <td>${row.Price}</td>
-                <td>${row.Loc}</td>
-              `;
-              prerollTable.appendChild(tr);
-            }
-          });
-        },
-        simpleSheet: true
+      const rows = text.trim().split('\n').map(row => row.split(','));
+      const headers = rows[0];
+      const data = rows.slice(1).map(row => Object.fromEntries(row.map((val, i) => [headers[i], val])));
+
+      const flowerTable = document.querySelector('#flower-table tbody');
+      const prerollTable = document.querySelector('#preroll-table tbody');
+
+      data.forEach(row => {
+        if (row.Type === 'Flower') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Brand}</td>
+            <td>${row.Strain}</td>
+            <td>${row.THCA}</td>
+            <td>${row.Eighth}</td>
+            <td>${row.Quarter}</td>
+            <td>${row.Half}</td>
+            <td>${row.Ounce}</td>
+            <td>${row.Loc}</td>
+          `;
+          flowerTable.appendChild(tr);
+        } else if (row.Type === 'Pre-Roll') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Strain}</td>
+            <td>${row.THCA}</td>
+            <td>${row.Price}</td>
+            <td>${row.Loc}</td>
+          `;
+          prerollTable.appendChild(tr);
+        }
       });
-    });
+    }
+
+    fetchCSVAndRender();
   </script>
-
-  <script>
-  window.addEventListener('DOMContentLoaded', function () {
-    Tabletop.init({
-      key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pubhtml',
-      callback: function (data, tabletop) {
-        console.log("Raw data from Google Sheet:", data); // 👈 Add this
-        const flowerTable = document.querySelector('#flower-table tbody');
-        const prerollTable = document.querySelector('#preroll-table tbody');
-
-        data.forEach(row => {
-          console.log("Processing row:", row); // 👈 Add this
-
-          if (row.Type === 'Flower') {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${row.Brand}</td>
-              <td>${row.Strain}</td>
-              <td>${row.THCA}</td>
-              <td>${row.Eighth}</td>
-              <td>${row.Quarter}</td>
-              <td>${row.Half}</td>
-              <td>${row.Ounce}</td>
-              <td>${row.Loc}</td>
-            `;
-            flowerTable.appendChild(tr);
-          } else if (row.Type === 'Pre-Roll') {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${row.Strain}</td>
-              <td>${row.THCA}</td>
-              <td>${row.Price}</td>
-              <td>${row.Loc}</td>
-            `;
-            prerollTable.appendChild(tr);
-          }
-        });
-      },
-      simpleSheet: true
-    });
-  });
-</script>
-  
 </body>
 </html>
