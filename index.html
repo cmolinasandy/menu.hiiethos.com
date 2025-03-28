@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hawaiian Ethos Digital Menu - Flower</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #1e2c1d;
+      color: white;
+    }
+
+    .menu-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+    }
+
+    .menu-title {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .menu-subtitle {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #f0f0f0;
+    }
+
+    .menu-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.1em;
+    }
+
+    .menu-table th, .menu-table td {
+      padding: 6px 10px;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
+
+    .menu-table th {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-section">
+    <div class="menu-title">Flower</div>
+    <div class="menu-subtitle">Big Buds & Popcorn Buds</div>
+    <table class="menu-table" id="flower-table">
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Strain</th>
+          <th>THCA</th>
+          <th>Eighth</th>
+          <th>Quarter</th>
+          <th>Half</th>
+          <th>Ounce</th>
+          <th>Loc</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="menu-section">
+    <div class="menu-title">Pre-Rolls</div>
+    <div class="menu-subtitle">5x per Pack, .5g Pre-Rolls</div>
+    <table class="menu-table" id="preroll-table">
+      <thead>
+        <tr>
+          <th>Strain</th>
+          <th>THCA</th>
+          <th>Price</th>
+          <th>Loc</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    async function fetchCSVAndRender() {
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pub?output=csv';
+      const response = await fetch(url);
+      const text = await response.text();
+
+      const rows = text.trim().split('\\n').map(row => row.split(','));
+      const headers = rows[0];
+      const data = rows.slice(1).map(row =>
+        Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
+      );
+
+      const flowerTable = document.querySelector('#flower-table tbody');
+      const prerollTable = document.querySelector('#preroll-table tbody');
+
+      data.forEach(row => {
+        if (row.Type === 'Flower') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Brand}</td>
+            <td>${row.Strain}</td>
+            <td>${row.THCA}</td>
+            <td>${row.Eighth}</td>
+            <td>${row.Quarter}</td>
+            <td>${row.Half}</td>
+            <td>${row.Ounce}</td>
+            <td>${row.Loc}</td>
+          `;
+          flowerTable.appendChild(tr);
+        } else if (row.Type === 'Pre-Roll') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Strain}</td>
+            <td>${row.THCA}</td>
+            <td>${row.Price}</td>
+            <td>${row.Loc}</td>
+          `;
+          prerollTable.appendChild(tr);
+        }
+      });
+    }
+
+    fetchCSVAndRender();
+  </script>
+</body>
+</html>
