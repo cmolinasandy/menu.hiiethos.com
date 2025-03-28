@@ -62,7 +62,7 @@
           <th>Quarter</th>
           <th>Half</th>
           <th>Ounce</th>
-          <th>Loc</th>
+          <th>Effect</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -78,7 +78,7 @@
           <th>Strain</th>
           <th>THCA</th>
           <th>Price</th>
-          <th>Loc</th>
+          <th>Effect</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -113,7 +113,7 @@
             <td>${formatPrice(row.Quarter)}</td>
             <td>${formatPrice(row.Half)}</td>
             <td>${formatPrice(row.Ounce)}</td>
-            <td>${row.Loc}</td>
+            <td>${row.Effect}</td>
           `;
           flowerTable.appendChild(tr);
         } else if (row.Type === 'Pre-Roll') {
@@ -122,7 +122,7 @@
             <td>${row.Strain}</td>
             <td>${formatPercent(row.THCA)}</td>
             <td>${formatPrice(row.Price)}</td>
-            <td>${row.Loc}</td>
+            <td>${row.Effect}</td>
           `;
           prerollTable.appendChild(tr);
         }
