@@ -84,6 +84,8 @@
 
       const flowerTable = document.querySelector('#flower-table tbody');
 
+      const formatPrice = (value) => value ? `$${value}` : '';
+
       data.forEach(row => {
         if (row.Type === 'Flower') {
           const tr = document.createElement('tr');
@@ -91,10 +93,10 @@
             <td>${row.Brand}</td>
             <td>${row.Strain}</td>
             <td>${row.THCA}</td>
-            <td>${row.Eighth}</td>
-            <td>${row.Quarter}</td>
-            <td>${row.Half}</td>
-            <td>${row.Ounce}</td>
+            <td>${formatPrice(row.Eighth)}</td>
+            <td>${formatPrice(row.Quarter)}</td>
+            <td>${formatPrice(row.Half)}</td>
+            <td>${formatPrice(row.Ounce)}</td>
             <td>${row.Loc}</td>
           `;
           flowerTable.appendChild(tr);
