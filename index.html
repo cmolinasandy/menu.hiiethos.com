@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <title>Rotation Test</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
       width: 100%;
+      height: 100%;
       overflow: hidden;
+      background: #f0f0f0;
     }
 
     .rotated {
+      transform: rotate(90deg);
+      transform-origin: top left;
       position: absolute;
       top: 0;
       left: 0;
-      transform: rotate(90deg);
-      transform-origin: top left;
       width: 100vh;
       height: 100vw;
-      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 2rem;
+      background: lightblue;
     }
   </style>
 </head>
 <body>
   <div class="rotated">
-    🎉 This should be rotated 90°!
+    📱 Rotated 90° — do you see me sideways?
   </div>
 </body>
 </html>
