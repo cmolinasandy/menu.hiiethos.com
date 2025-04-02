@@ -1,196 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hawaiian Ethos Digital Menu - Flower</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       width: 100%;
       overflow: hidden;
-      
-      font-family: 'Montserrat', sans-serif;
-      background-color: #1e2c1d;
-      color: white;
+    }
+
+    .rotated-content {
       transform: rotate(90deg);
       transform-origin: top left;
-      
       position: absolute;
       top: 0;
       left: 0;
-
       width: 100vh;
       height: 100vw;
-
+      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
-
+      font-size: 2rem;
     }
-    .menu-section {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto 40px auto;
-    }
-
-    .menu-title {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .menu-subtitle {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      color: #f0f0f0;
-    }
-
-    .menu-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 1.1em;
-    }
-
-    .menu-table th, .menu-table td {
-      padding: 6px 10px;
-      text-align: left;
-      border-bottom: 1px solid #444;
-    }
-
-    .menu-table th {
-      color: #ccc;
-    }
-	
-	/* This (below) is a block of classes*/
-	/* to explicitly control the width */
-	/* of the flower table columns */
-	
-	.col-flower-strain {
-  	  width: 100%;
-	}
-	.col-flower-total {
-  	  width: 100px;
-	}
-	.col-flower-eighth {
-  	  width: 100px;
-	}
-	.col-flower-quarter {
-  	  width: 100px;
-	}
-	.col-flower-half {
-  	  width: 100px;
-	}
-	.col-flower-ounce {
-  	  width: 100px;
-	}
-	.col-flower-effect {
-  	  width: 100px;
-	}
-	
-	/* This (below) is a block of classes*/
-	/* to explicitly control the width */
-	/* of the pre-roll table columns */
-	
-	.col-preroll-strain {
-  	  width: 100%;
-	}
-	.col-preroll-total {
-  	  width: 100px;
-	}
-	.col-preroll-eighth {
-  	  width: 100px;
-	}
-	.col-preroll-quarter {
-  	  width: 100px;
-	}
-	
   </style>
 </head>
 <body>
-  <div class="menu-section">
-    <div class="menu-title">Flower</div>
-    <div class="menu-subtitle">Big Buds & Popcorn Buds</div>
-    <table class="menu-table" id="flower-table">
-      <thead>
-        <tr>
-          <th class="col-flower-strain">Strain</th>
-          <th class="col-flower-total">Total</th>
-          <th class="col-flower-eighth">Eighth</th>
-          <th class="col-flower-quarter">Quarter</th>
-          <th class="col-flower-half">Half</th>
-          <th class="col-flower-ounce">Ounce</th>
-          <th class="col-flower-effect">Effect</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <div class="rotated-content">
+    Hello, this is rotated!
   </div>
-
-  <div class="menu-section">
-    <div class="menu-title">Pre-Rolls</div>
-    <div class="menu-subtitle">5x per Pack, .5g Pre-Rolls</div>
-    <table class="menu-table" id="preroll-table">
-      <thead>
-        <tr>
-          <th class="col-preroll-strain">Strain</th>
-          <th class="col-preroll-total">Total</th>
-          <th class="col-preroll-price">Price</th>
-          <th class="col-preroll-effect">Effect</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <script>
-    async function fetchCSVAndRender() {
-      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pub?output=csv';
-      const response = await fetch(url);
-      const text = await response.text();
-
-      const rows = text.trim().split('\n').map(row => row.split(','));
-      const headers = rows[0];
-      const data = rows.slice(1).map(row =>
-        Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
-      );
-
-      const flowerTable = document.querySelector('#flower-table tbody');
-      const prerollTable = document.querySelector('#preroll-table tbody');
-
-      const formatPrice = (value) => value ? `$${value}` : '';
-      const formatPercent = (value) => value ? `${value}%` : '';
-
-      data.forEach(row => {
-        if (row.Type === 'Flower') {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.Strain}</td>
-            <td>${formatPercent(row.Total)}</td>
-            <td>${formatPrice(row.Eighth)}</td>
-            <td>${formatPrice(row.Quarter)}</td>
-            <td>${formatPrice(row.Half)}</td>
-            <td>${formatPrice(row.Ounce)}</td>
-            <td>${row.Effect}</td>
-          `;
-          flowerTable.appendChild(tr);
-        } else if (row.Type === 'Pre-Roll') {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.Strain}</td>
-            <td>${formatPercent(row.Total)}</td>
-            <td>${formatPrice(row.Price)}</td>
-            <td>${row.Effect}</td>
-          `;
-          prerollTable.appendChild(tr);
-        }
-      });
-    }
-
-    fetchCSVAndRender();
-  </script>
 </body>
 </html>
