@@ -130,7 +130,7 @@
 
   <script>
     async function fetchCSVAndRender() {
-      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQO81j9RIeJgIGuLvam6NK7M88MRvp5C9S8ygHtSN2xyQcKuONmtH1dn6V-xQY5n0wWatMSex4SqBe1/pub?output=csv';
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUjzzGtX7yYetjDWRdWOiaz5CH3cAZZGfmSEGrl5e9-YvFtxRLRpUXn4dK5jIxyhymQw76uWXTkysU/pub?output=csv';
       const response = await fetch(url);
       const text = await response.text();
 
@@ -141,7 +141,7 @@
       );
 
       const flowerTable = document.querySelector('#flower-table tbody');
-      const prerollTable = document.querySelector('#preroll-table tbody');
+      const prerollTable = document.querySelector('#product-table tbody');
 
       const formatPrice = (value) => value ? `$${value}` : '';
       const formatPercent = (value) => value ? `${value}%` : '';
@@ -159,7 +159,7 @@
             <td>${row.Effect}</td>
           `;
           flowerTable.appendChild(tr);
-        } else if (row.Type === 'Pre-Roll') {
+        } else if (row.Type === 'Product') {
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${row.Strain}</td>
@@ -167,7 +167,7 @@
             <td>${formatPrice(row.Price)}</td>
             <td>${row.Effect}</td>
           `;
-          prerollTable.appendChild(tr);
+          productTable.appendChild(tr);
         }
       });
     }
