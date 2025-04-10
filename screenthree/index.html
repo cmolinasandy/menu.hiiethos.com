@@ -90,7 +90,7 @@
   <div class="menu-section">
     <div class="menu-title">Concentrates</div>
     <div class="menu-subtitle">Solventless Rosin & Kief</div>
-    <table class="menu-table" id="flower-table">
+    <table class="menu-table" id="concentrate-table">
       <thead>
         <tr>
           <th class="col-concentrate-description">Products</th>
@@ -132,7 +132,7 @@
         Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
       );
 
-      const flowerTable = document.querySelector('#flower-table tbody');
+      const flowerTable = document.querySelector('#concentrate-table tbody');
       const productTable = document.querySelector('#product-table tbody');
 
       const formatPrice = (value) => value ? `$${value}` : '';
