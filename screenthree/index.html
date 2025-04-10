@@ -80,7 +80,7 @@
 	.col-product-description {
   	  width: 100%;
 	}
-	.col-product-total {
+	.col-product-10pk {
   	  width: 100px;
 	}
 	.col-product-price {
@@ -119,7 +119,7 @@
       <thead>
         <tr>
           <th class="col-product-description">Products</th>
-          <th class="col-product-total">Total</th>
+          <th class="col-product-10pk">10pk</th>
           <th class="col-product-price">Price</th>
           <th class="col-product-effect">Effect</th>
         </tr>
@@ -163,7 +163,7 @@
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${row.Description}</td>
-            <td>${formatPercent(row.Total)}</td>
+            <td>${formatPrice(row.10pk)}</td>
             <td>${formatPrice(row.Price)}</td>
             <td>${row.Effect}</td>
           `;
