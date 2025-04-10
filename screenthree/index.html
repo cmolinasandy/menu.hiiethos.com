@@ -83,7 +83,7 @@
 	.col-product-10pk {
   	  width: 100px;
 	}
-	.col-product-price {
+	.col-product-20pk {
   	  width: 100px;
 	}
 	.col-product-effect {
@@ -120,7 +120,7 @@
         <tr>
           <th class="col-product-description">Products</th>
           <th class="col-product-10pk">10pk</th>
-          <th class="col-product-price">Price</th>
+          <th class="col-product-20pk">20pk</th>
           <th class="col-product-effect">Effect</th>
         </tr>
       </thead>
@@ -164,7 +164,7 @@
           tr.innerHTML = `
             <td>${row.Description}</td>
             <td>${formatPrice(row["10pk"])}</td>
-            <td>${formatPrice(row.Price)}</td>
+            <td>${formatPrice(row["20pk"])}</td>
             <td>${row.Effect}</td>
           `;
           productTable.appendChild(tr);
