@@ -63,12 +63,6 @@
 	.col-flower-quarter {
   	  width: 100px;
 	}
-	.col-flower-half {
-  	  width: 100px;
-	}
-	.col-flower-ounce {
-  	  width: 100px;
-	}
 	.col-flower-effect {
   	  width: 100px;
 	}
@@ -103,8 +97,6 @@
           <th class="col-flower-total">Total</th>
           <th class="col-flower-eighth">Eighth</th>
           <th class="col-flower-quarter">Quarter</th>
-          <th class="col-flower-half">Half</th>
-          <th class="col-flower-ounce">Ounce</th>
           <th class="col-flower-effect">Effect</th>
         </tr>
       </thead>
@@ -154,8 +146,6 @@
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Eighth)}</td>
             <td>${formatPrice(row.Quarter)}</td>
-            <td>${formatPrice(row.Half)}</td>
-            <td>${formatPrice(row.Ounce)}</td>
             <td>${row.Effect}</td>
           `;
           flowerTable.appendChild(tr);
