@@ -60,9 +60,6 @@
 	.col-concentrate-gram {
   	  width: 100px;
 	}
-	.col-flower-quarter {
-  	  width: 100px;
-	}
 	.col-flower-effect {
   	  width: 100px;
 	}
@@ -96,7 +93,6 @@
           <th class="col-concentrate-description">Products</th>
           <th class="col-concentrate-total">Total</th>
           <th class="col-concentrate-gram">Gram</th>
-          <th class="col-flower-quarter">Quarter</th>
           <th class="col-flower-effect">Effect</th>
         </tr>
       </thead>
@@ -145,7 +141,6 @@
             <td>${row.Concentrate}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Gram)}</td>
-            <td>${formatPrice(row.Quarter)}</td>
             <td>${row.Effect}</td>
           `;
           flowerTable.appendChild(tr);
