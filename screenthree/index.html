@@ -130,7 +130,7 @@
 
   <script>
     async function fetchCSVAndRender() {
-      const url = 'https://docs.google.com/sadsheets/d/e/2PACX-1vRUjzzGtX7yYetjDWRdWOiaz5CH3cAZZGfmSEGrl5e9-YvFtxRLRpUXn4dK5jIxyhymQw76uWXTkysU/pub?output=csv';
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUjzzGtX7yYetjDWRdWOiaz5CH3cAZZGfmSEGrl5e9-YvFtxRLRpUXn4dK5jIxyhymQw76uWXTkysU/pub?output=csv';
       const response = await fetch(url);
       const text = await response.text();
 
