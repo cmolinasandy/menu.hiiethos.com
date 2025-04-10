@@ -51,7 +51,7 @@
 	/* to explicitly control the width */
 	/* of the flower table columns */
 	
-	.col-flower-strain {
+	.col-concentrate-description {
   	  width: 100%;
 	}
 	.col-flower-total {
@@ -99,7 +99,7 @@
     <table class="menu-table" id="flower-table">
       <thead>
         <tr>
-          <th class="col-flower-strain">Strain</th>
+          <th class="col-concentrate-description">Products</th>
           <th class="col-flower-total">Total</th>
           <th class="col-flower-eighth">Eighth</th>
           <th class="col-flower-quarter">Quarter</th>
@@ -147,10 +147,10 @@
       const formatPercent = (value) => value ? `${value}%` : '';
 
       data.forEach(row => {
-        if (row.Type === 'Flower') {
+        if (row.Type === 'Concentrate') {
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td>${row.Strain}</td>
+            <td>${row.Concentrate}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Eighth)}</td>
             <td>${formatPrice(row.Quarter)}</td>
