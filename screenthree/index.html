@@ -77,7 +77,7 @@
 	/* to explicitly control the width */
 	/* of the -roll table columns */
 	
-	.col-product-strain {
+	.col-product-description {
   	  width: 100%;
 	}
 	.col-product-total {
@@ -118,7 +118,7 @@
     <table class="menu-table" id="product-table">
       <thead>
         <tr>
-          <th class="col-product-strain">Strain</th>
+          <th class="col-product-description">Description</th>
           <th class="col-product-total">Total</th>
           <th class="col-product-price">Price</th>
           <th class="col-product-effect">Effect</th>
@@ -162,7 +162,7 @@
         } else if (row.Type === 'Product') {
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td>${row.Strain}</td>
+            <td>${row.Description}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Price)}</td>
             <td>${row.Effect}</td>
