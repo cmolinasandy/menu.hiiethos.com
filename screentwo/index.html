@@ -106,7 +106,7 @@
     <table class="menu-table" id="flower-table">
       <thead>
         <tr>
-          <th class="col-flower-strain">Strain</th>
+          <th class="col-flower-strain">Name</th>
           <th class="col-flower-total">Total</th>
           <th class="col-flower-eighth">Eighth</th>
           <th class="col-flower-quarter">Quarter</th>
@@ -127,7 +127,7 @@
     <table class="menu-table" id="preroll-table">
       <thead>
         <tr>
-          <th class="col-preroll-strain">Strain</th>
+          <th class="col-preroll-strain">Name</th>
           <th class="col-preroll-total">THC</th>
           <th class="col-preroll-price">CBD</th>
           <th class="col-preroll-effect">CBN</th>
@@ -161,7 +161,7 @@
       if (row.Type === 'Cartridge') {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${row.Strain}</td>
+          <td>${row.Name}</td>
           <td>${formatPercent(row.Total)}</td>
           <td>${formatPrice(row.Price)}</td>
           <td>${row.Effect}</td>
@@ -173,7 +173,7 @@
       if (['Tincture', 'Salve', 'FSO'].includes(row.Type)) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${row.Strain}</td>
+          <td>${row.Name}</td>
           <td>${formatPercent(row.THC)}</td>
           <td>${formatPercent(row.CBD)}</td>
           <td>${formatPercent(row.CBN)}</td>
