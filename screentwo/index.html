@@ -128,60 +128,64 @@
       <thead>
         <tr>
           <th class="col-preroll-strain">Strain</th>
-          <th class="col-preroll-total">Total</th>
-          <th class="col-preroll-price">Price</th>
-          <th class="col-preroll-effect">Effect</th>
+          <th class="col-preroll-total">THC</th>
+          <th class="col-preroll-price">CBD</th>
+          <th class="col-preroll-effect">CBN</th>
+          <th class="col-preroll-effect">Price</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
 
-  <script>
-    async function fetchCSVAndRender() {
-      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0npxrsKSllLht75LEDF9ecK29jvJ_V0G6EM6WK5IA2tg8dBGRin3qpj0SVAwsrabm4J7Vr67Zivws/pub?output=csv';
-      const response = await fetch(url);
-      const text = await response.text();
+<script>
+  async function fetchCSVAndRender() {
+    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0npxrsKSllLht75LEDF9ecK29jvJ_V0G6EM6WK5IA2tg8dBGRin3qpj0SVAwsrabm4J7Vr67Zivws/pub?output=csv';
+    const response = await fetch(url);
+    const text = await response.text();
 
-      const rows = text.trim().split('\n').map(row => row.split(','));
-      const headers = rows[0];
-      const data = rows.slice(1).map(row =>
-        Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
-      );
+    const rows = text.trim().split('\n').map(row => row.split(','));
+    const headers = rows[0];
+    const data = rows.slice(1).map(row =>
+      Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
+    );
 
-      const flowerTable = document.querySelector('#flower-table tbody');
-      const prerollTable = document.querySelector('#preroll-table tbody');
+    const cartridgeTable = document.querySelector('#flower-table tbody');
+    const essentialsTable = document.querySelector('#preroll-table tbody');
 
-      const formatPrice = (value) => value ? `$${value}` : '';
-      const formatPercent = (value) => value ? `${value}%` : '';
+    const formatPrice = (value) => value ? `$${value}` : '';
+    const formatPercent = (value) => value ? `${value}%` : '';
 
-      data.forEach(row => {
-        if (row.Type === 'Flower') {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.Strain}</td>
-            <td>${formatPercent(row.Total)}</td>
-            <td>${formatPrice(row.Eighth)}</td>
-            <td>${formatPrice(row.Quarter)}</td>
-            <td>${formatPrice(row.Half)}</td>
-            <td>${formatPrice(row.Ounce)}</td>
-            <td>${row.Effect}</td>
-          `;
-          flowerTable.appendChild(tr);
-        } else if (row.Type === 'Pre-Roll') {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.Strain}</td>
-            <td>${formatPercent(row.Total)}</td>
-            <td>${formatPrice(row.Price)}</td>
-            <td>${row.Effect}</td>
-          `;
-          prerollTable.appendChild(tr);
-        }
-      });
-    }
+    data.forEach(row => {
+      // Populate Cartridge table
+      if (row.Type === 'Cartridge') {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.Strain}</td>
+          <td>${formatPercent(row.Total)}</td>
+          <td>${formatPrice(row.Price)}</td>
+          <td>${row.Effect}</td>
+        `;
+        cartridgeTable.appendChild(tr);
+      }
 
-    fetchCSVAndRender();
-  </script>
+      // Populate Essentials table
+      if (['Tincture', 'Salve', 'FSO'].includes(row.Type)) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.Strain}</td>
+          <td>${formatPercent(row.THC)}</td>
+          <td>${formatPercent(row.CBD)}</td>
+          <td>${formatPercent(row.CBN)}</td>
+          <td>${formatPrice(row.Price)}</td>
+        `;
+        essentialsTable.appendChild(tr);
+      }
+    });
+  }
+
+  fetchCSVAndRender();
+</script>
+
 </body>
 </html>
