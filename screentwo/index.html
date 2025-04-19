@@ -152,6 +152,7 @@
 
     const formatPrice = (value) => value ? `$${value}` : '';
     const formatPercent = (value) => value ? `${value}%` : '';
+    const formatMilligram = (value) => value ? `${value}mg` : '';
 
     data.forEach(row => {
       // Populate Cartridge table
@@ -171,10 +172,10 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${row.Name}</td>
-          <td>${formatPercent(row.THC)}</td>
-          <td>${formatPercent(row.CBD)}</td>
-          <td>${formatPercent(row.CBN)}</td>
-          <td>${formatPrice(row.Price)}</td>
+          <td>${formatMilligram(row.THC)}</td>
+          <td>${formatMilligram(row.CBD)}</td>
+          <td>${formatMilligram(row.CBN)}</td>
+          <td>${formatMilligram(row.Price)}</td>
         `;
         essentialsTable.appendChild(tr);
       }
