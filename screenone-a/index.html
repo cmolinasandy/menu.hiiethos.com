@@ -46,63 +46,34 @@
     .menu-table th {
       color: #ccc;
     }
-    
+
     .menu-title-image {
       height: 60px;
       width: auto;
       display: block;
     }
-	
-	/* This (below) is a block of classes*/
-	/* to explicitly control the width */
-	/* of the flower table columns */
-	
-	.col-flower-strain {
-  	  width: 100%;
-	}
-	.col-flower-total {
-  	  width: 100px;
-	}
-	.col-flower-eighth {
-  	  width: 100px;
-	}
-	.col-flower-quarter {
-  	  width: 100px;
-	}
-	.col-flower-half {
-  	  width: 100px;
-	}
-	.col-flower-ounce {
-  	  width: 100px;
-	}
-	.col-flower-effect {
-  	  width: 100px;
-	}
-	
-	/* This (below) is a block of classes*/
-	/* to explicitly control the width */
-	/* of the pre-roll table columns */
-	
-	.col-preroll-strain {
-  	  width: 100%;
-	}
-	.col-preroll-total {
-  	  width: 100px;
-	}
-	.col-preroll-eighth {
-  	  width: 100px;
-	}
-	.col-preroll-quarter {
-  	  width: 100px;
-	}
-	
+
+    /* Remove effect column widths */
+    .col-flower-strain, .col-preroll-strain {
+      width: 100%;
+    }
+    .col-flower-total, .col-flower-eighth, .col-flower-quarter, .col-flower-half, .col-flower-ounce,
+    .col-preroll-total, .col-preroll-price {
+      width: 100px;
+    }
+
+    /* Colors for effects */
+    .sativa { color: #FFC600; }
+    .indica { color: #00AB84; }
+    .hybrid { color: #F87666; }
+
   </style>
 </head>
 <body>
   <div class="menu-section">
-  <div class="menu-title">
-    <img src="/screenone/images/flower-title.png" alt="Flower" class="menu-title-image" />
-  </div>
+    <div class="menu-title">
+      <img src="/screenone/images/flower-title.png" alt="Flower" class="menu-title-image" />
+    </div>
     <div class="menu-subtitle">Big Buds & Popcorn Buds</div>
     <table class="menu-table" id="flower-table">
       <thead>
@@ -113,7 +84,6 @@
           <th class="col-flower-quarter">Quarter</th>
           <th class="col-flower-half">Half</th>
           <th class="col-flower-ounce">Ounce</th>
-          <th class="col-flower-effect">Effect</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -121,9 +91,9 @@
   </div>
 
   <div class="menu-section">
-  <div class="menu-title">
-    <img src="/screenone/images/prerolls-title.png" alt="Pre-Rolls" class="menu-title-image" />
-  </div>
+    <div class="menu-title">
+      <img src="/screenone/images/prerolls-title.png" alt="Pre-Rolls" class="menu-title-image" />
+    </div>
     <div class="menu-subtitle">5x per Pack, .5g Pre-Rolls</div>
     <table class="menu-table" id="preroll-table">
       <thead>
@@ -131,7 +101,6 @@
           <th class="col-preroll-strain">Strain</th>
           <th class="col-preroll-total">Total</th>
           <th class="col-preroll-price">Price</th>
-          <th class="col-preroll-effect">Effect</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -156,9 +125,19 @@
       const formatPrice = (value) => value ? `$${value}` : '';
       const formatPercent = (value) => value ? `${value}%` : '';
 
+      const getEffectClass = (effect) => {
+        if (!effect) return '';
+        effect = effect.toLowerCase();
+        if (effect.includes('sativa')) return 'sativa';
+        if (effect.includes('indica')) return 'indica';
+        if (effect.includes('hybrid')) return 'hybrid';
+        return '';
+      };
+
       data.forEach(row => {
         if (row.Type === 'Flower') {
           const tr = document.createElement('tr');
+          tr.className = getEffectClass(row.Effect);
           tr.innerHTML = `
             <td>${row.Strain}</td>
             <td>${formatPercent(row.Total)}</td>
@@ -166,16 +145,15 @@
             <td>${formatPrice(row.Quarter)}</td>
             <td>${formatPrice(row.Half)}</td>
             <td>${formatPrice(row.Ounce)}</td>
-            <td>${row.Effect}</td>
           `;
           flowerTable.appendChild(tr);
         } else if (row.Type === 'Pre-Roll') {
           const tr = document.createElement('tr');
+          tr.className = getEffectClass(row.Effect);
           tr.innerHTML = `
             <td>${row.Strain}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Price)}</td>
-            <td>${row.Effect}</td>
           `;
           prerollTable.appendChild(tr);
         }
