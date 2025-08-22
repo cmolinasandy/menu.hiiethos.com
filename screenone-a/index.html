@@ -13,56 +13,35 @@
       background-color: #1e2c1d;
       color: white;
     }
-    .menu-section {
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto 40px auto;
-    }
+    .menu-section { width: 100%; max-width: 100%; margin: 0 auto 40px auto; }
+    .menu-title { font-size: 3em; margin-bottom: 10px; color: #ffffff; }
+    .menu-subtitle { font-size: 1.5em; margin-bottom: 20px; color: #f0f0f0; }
 
-    .menu-title {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
+    .menu-table { width: 100%; border-collapse: collapse; font-size: 1.1em; }
+    .menu-table th, .menu-table td { padding: 6px 10px; text-align: left; border-bottom: 1px solid #444; }
+    .menu-table th { color: #ccc; }
 
-    .menu-subtitle {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      color: #f0f0f0;
-    }
-
-    .menu-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 1.1em;
-    }
-
-    .menu-table th, .menu-table td {
-      padding: 6px 10px;
-      text-align: left;
-      border-bottom: 1px solid #444;
-    }
-
-    .menu-table th {
-      color: #ccc;
-    }
-
-    .menu-title-image {
-      height: 60px;
-      width: auto;
-      display: block;
-    }
+    .menu-title-image { height: 60px; width: auto; display: block; }
 
     /* Column sizing (Effect removed) */
     .col-flower-strain, .col-preroll-strain { width: 100%; }
     .col-flower-total, .col-flower-eighth, .col-flower-quarter, .col-flower-half, .col-flower-ounce,
     .col-preroll-total, .col-preroll-price { width: 100px; }
 
-    /* Brand colors by designation */
+    /* Brand colors by designation (row text color) */
     .sativa { color: #FFC600; }  /* Yellow */
     .indica { color: #00AB84; }  /* Teal */
     .hybrid { color: #F87666; }  /* Guava */
-    .cbd    { color: #3A82F7; }  /* Blue (primary) */
+    .cbd    { color: #3A82F7; }  /* CBD Blue */
+
+    /* Inline logo styling for :tokens: */
+    .logo-icon {
+      height: 1.05em;           /* match text height */
+      vertical-align: -0.15em;  /* baseline alignment */
+      display: inline-block;
+      margin-left: 0.25em;
+      margin-right: 0.1em;
+    }
   </style>
 </head>
 <body>
@@ -121,24 +100,38 @@
       const formatPrice = (value) => value ? `$${value}` : '';
       const formatPercent = (value) => value ? `${value}%` : '';
 
-      const getEffectClass = (row) => {
-        const effect = (row.Effect || '').toLowerCase();
-        const strain = (row.Strain || '').toLowerCase();
-
-        // CBD check first so items like "CBD/THC" map to CBD
-        if (effect.includes('cbd')) return 'cbd';
-        if (effect.includes('sativa')) return 'sativa';
-        if (effect.includes('indica')) return 'indica';
-        if (effect.includes('hybrid')) return 'hybrid';
-        return '';
+      /* Map shortcode -> logo path (add more as needed) */
+      const ICONS = {
+        ethos: '/screenone/images/logos/ethos.svg',
+        cbd: '/screenone/images/logos/cbd.svg',
+        // example: artist: '/screenone/images/logos/artist.svg',
       };
+
+      /* Replace :token: with inline <img>; leave unknown tokens unchanged */
+      function renderWithIcons(text) {
+        if (!text) return '';
+        return text.replace(/\:([a-z0-9_-]+)\:/gi, (m, name) => {
+          const src = ICONS[name];
+          return src ? `<img class="logo-icon" src="${src}" alt="${name}">` : m;
+        });
+      }
+
+      /* Only look at the Effect column for designation */
+      function getEffectClassFromEffect(effectText) {
+        const e = (effectText || '').toLowerCase();
+        if (e.includes('cbd'))    return 'cbd';
+        if (e.includes('sativa')) return 'sativa';
+        if (e.includes('indica')) return 'indica';
+        if (e.includes('hybrid')) return 'hybrid';
+        return '';
+      }
 
       data.forEach(row => {
         if (row.Type === 'Flower') {
           const tr = document.createElement('tr');
-          tr.className = getEffectClass(row);
+          tr.className = getEffectClassFromEffect(row.Effect);
           tr.innerHTML = `
-            <td>${row.Strain}</td>
+            <td>${renderWithIcons(row.Strain)}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Eighth)}</td>
             <td>${formatPrice(row.Quarter)}</td>
@@ -148,9 +141,9 @@
           flowerTable.appendChild(tr);
         } else if (row.Type === 'Pre-Roll') {
           const tr = document.createElement('tr');
-          tr.className = getEffectClass(row);
+          tr.className = getEffectClassFromEffect(row.Effect);
           tr.innerHTML = `
-            <td>${row.Strain}</td>
+            <td>${renderWithIcons(row.Strain)}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Price)}</td>
           `;
