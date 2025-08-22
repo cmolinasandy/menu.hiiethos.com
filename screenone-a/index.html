@@ -47,7 +47,7 @@
 <body>
   <div class="menu-section">
     <div class="menu-title">
-      <img src="/screenone/images/flower-title.png" alt="Flower" class="menu-title-image" />
+      <img src="images/flower-title.png" alt="Flower" class="menu-title-image" />
     </div>
     <div class="menu-subtitle">Big Buds & Popcorn Buds</div>
     <table class="menu-table" id="flower-table">
@@ -67,7 +67,7 @@
 
   <div class="menu-section">
     <div class="menu-title">
-      <img src="/screenone/images/prerolls-title.png" alt="Pre-Rolls" class="menu-title-image" />
+      <img src="images/prerolls-title.png" alt="Pre-Rolls" class="menu-title-image" />
     </div>
     <div class="menu-subtitle">5x per Pack, .5g Pre-Rolls</div>
     <table class="menu-table" id="preroll-table">
@@ -88,7 +88,7 @@
       const response = await fetch(url);
       const text = await response.text();
 
-      const rows = text.trim().split('\n').map(row => row.split(','));
+      const rows = text.trim().split(/\r?\n/).map(row => row.split(','));
       const headers = rows[0];
       const data = rows.slice(1).map(row =>
         Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
@@ -100,19 +100,23 @@
       const formatPrice = (value) => value ? `$${value}` : '';
       const formatPercent = (value) => value ? `${value}%` : '';
 
-      /* Map shortcode -> logo path (add more as needed) */
+      /* Map shortcode -> logo path (relative to /screenone-a/) */
       const ICONS = {
-        ethos: '/screenone-a/images/logos/ethos.svg',
-        sale: '/screenone-a/images/logos/sale.svg',
-        // example: artist: '/screenone/images/logos/artist.svg',
+        ethos: 'images/ethos.svg?v=1',
+        cbd:   'images/cbd.svg?v=1',
+        // add more: artist: 'images/artist.svg?v=1',
       };
 
       /* Replace :token: with inline <img>; leave unknown tokens unchanged */
       function renderWithIcons(text) {
         if (!text) return '';
         return text.replace(/\:([a-z0-9_-]+)\:/gi, (m, name) => {
-          const src = ICONS[name];
-          return src ? `<img class="logo-icon" src="${src}" alt="${name}">` : m;
+          const key = name.toLowerCase();
+          const src = ICONS[key];
+          if (!src) return m;
+          return `<img class="logo-icon" src="${src}" alt="" aria-label="${key}"
+                   loading="lazy" decoding="async"
+                   onerror="this.replaceWith(document.createTextNode(':${key}:'))">`;
         });
       }
 
