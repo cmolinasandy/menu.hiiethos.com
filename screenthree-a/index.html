@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hawaiian Ethos Digital Menu - Concentrates & Edibles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #1e2c1d;
+      color: white;
+    }
+    .menu-section {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto 40px auto;
+    }
+
+    .menu-title {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .menu-subtitle {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #f0f0f0;
+    }
+
+    .menu-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.1em;
+    }
+
+    .menu-table th, .menu-table td {
+      padding: 6px 10px;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
+
+    .menu-table th {
+      color: #ccc;
+    }
+    
+    .menu-title-image {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+	
+	/* This (below) is a block of classes*/
+	/* to explicitly control the width */
+	/* of the flower table columns */
+	
+	.col-concentrate-description {
+  	  width: 100%;
+	}
+	.col-concentrate-total {
+  	  width: 100px;
+	}
+	.col-concentrate-gram {
+  	  width: 100px;
+	}
+	.col-flower-effect {
+  	  width: 100px;
+	}
+	
+	/* This (below) is a block of classes*/
+	/* to explicitly control the width */
+	/* of the -roll table columns */
+	
+	.col-product-description {
+  	  width: 100%;
+	}
+	.col-product-10pk {
+  	  width: 100px;
+	}
+	.col-product-20pk {
+  	  width: 100px;
+	}
+	.col-product-effect {
+  	  width: 100px;
+	}
+	
+  </style>
+</head>
+<body>
+  <div class="menu-section">
+  <div class="menu-title">
+    <img src="/screenthree/images/concentrates-title.png" alt="Concentrates" class="menu-title-image" />
+  </div>
+    <div class="menu-subtitle">Solventless Dabs & Kief</div>
+    <table class="menu-table" id="concentrate-table">
+      <thead>
+        <tr>
+          <th class="col-concentrate-description">Products</th>
+          <th class="col-concentrate-total">Total</th>
+          <th class="col-concentrate-gram">Gram</th>
+          <th class="col-flower-effect">Effect</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="menu-section">
+  <div class="menu-title">
+    <img src="/screenthree/images/edibles-title.png" alt="Edibles" class="menu-title-image" />
+  </div>
+    <div class="menu-subtitle">Chocolates and Gummies</div>
+    <table class="menu-table" id="product-table">
+      <thead>
+        <tr>
+          <th class="col-product-description">Products</th>
+          <th class="col-product-10pk">10pk</th>
+          <th class="col-product-20pk">20pk</th>
+          <th class="col-product-effect">Effect</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    async function fetchCSVAndRender() {
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUjzzGtX7yYetjDWRdWOiaz5CH3cAZZGfmSEGrl5e9-YvFtxRLRpUXn4dK5jIxyhymQw76uWXTkysU/pub?output=csv';
+      const response = await fetch(url);
+      const text = await response.text();
+
+      const rows = text.trim().split('\n').map(row => row.split(','));
+      const headers = rows[0];
+      const data = rows.slice(1).map(row =>
+        Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
+      );
+
+      const flowerTable = document.querySelector('#concentrate-table tbody');
+      const productTable = document.querySelector('#product-table tbody');
+
+      const formatPrice = (value) => value ? `$${value}` : '';
+      const formatPercent = (value) => value ? `${value}%` : '';
+
+      data.forEach(row => {
+        if (row.Type === 'Concentrate') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Concentrate}</td>
+            <td>${formatPercent(row.Total)}</td>
+            <td>${formatPrice(row.Gram)}</td>
+            <td>${row.Effect}</td>
+          `;
+          flowerTable.appendChild(tr);
+        } else if (row.Type === 'Product') {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.Description}</td>
+            <td>${formatPrice(row["10pk"])}</td>
+            <td>${formatPrice(row["20pk"])}</td>
+            <td>${row.Effect}</td>
+          `;
+          productTable.appendChild(tr);
+        }
+      });
+    }
+
+    fetchCSVAndRender();
+  </script>
+</body>
+</html>
