@@ -126,7 +126,7 @@
         const strain = (row.Strain || '').toLowerCase();
 
         // CBD check first so items like "CBD/THC" map to CBD
-        if (effect.includes('cbd') || strain.includes('cbd')) return 'cbd';
+        if (effect.includes('cbd')) return 'cbd';
         if (effect.includes('sativa')) return 'sativa';
         if (effect.includes('indica')) return 'indica';
         if (effect.includes('hybrid')) return 'hybrid';
