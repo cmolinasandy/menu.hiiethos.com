@@ -10,116 +10,104 @@
       margin: 0;
       padding: 40px;
       font-family: 'Montserrat', sans-serif;
-      background-color: #1e2c1d;
+      background-color: #000; /* match the black background */
       color: white;
     }
-    .menu-section {
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto 40px auto;
+    .menu-section { width: 100%; max-width: 100%; margin: 0 auto 40px auto; }
+    .menu-title { font-size: 3em; margin-bottom: 10px; color: #ffffff; }
+    .menu-subtitle { font-size: 1.5em; margin-bottom: 20px; color: #f0f0f0; }
+
+    .menu-table { width: 100%; border-collapse: collapse; font-size: 1.1em; }
+    .menu-table th, .menu-table td { padding: 6px 10px; text-align: left; border-bottom: 1px solid #444; }
+    .menu-table th { color: #ccc; }
+
+    .menu-title-image { height: 60px; width: auto; display: block; }
+
+    /* Column sizing (Effect removed in both tables) */
+    .col-concentrate-description, .col-product-description { width: 100%; }
+    .col-concentrate-total, .col-concentrate-gram,
+    .col-product-10pk, .col-product-20pk { width: 120px; }
+
+    /* Brand colors by designation (row text color) */
+    .sativa { color: #FFC600; }  /* Yellow */
+    .indica { color: #00AB84; }  /* Teal */
+    .hybrid { color: #F87666; }  /* Guava */
+    .cbd    { color: #3A82F7; }  /* CBD Blue */
+
+    /* Inline logo styling for :tokens: */
+    .logo-icon {
+      height: 1.05em;
+      vertical-align: -0.15em; /* baseline alignment */
+      display: inline-block;
+      margin-left: 0.25em;
+      margin-right: 0.1em;
     }
 
-    .menu-title {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .menu-subtitle {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      color: #f0f0f0;
-    }
-
-    .menu-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 1.1em;
-    }
-
-    .menu-table th, .menu-table td {
-      padding: 6px 10px;
-      text-align: left;
-      border-bottom: 1px solid #444;
-    }
-
-    .menu-table th {
-      color: #ccc;
-    }
-    
-    .menu-title-image {
-      height: 60px;
-      width: auto;
-      display: block;
-    }
-	
-	/* This (below) is a block of classes*/
-	/* to explicitly control the width */
-	/* of the flower table columns */
-	
-	.col-concentrate-description {
-  	  width: 100%;
-	}
-	.col-concentrate-total {
-  	  width: 100px;
-	}
-	.col-concentrate-gram {
-  	  width: 100px;
-	}
-	.col-flower-effect {
-  	  width: 100px;
-	}
-	
-	/* This (below) is a block of classes*/
-	/* to explicitly control the width */
-	/* of the -roll table columns */
-	
-	.col-product-description {
-  	  width: 100%;
-	}
-	.col-product-10pk {
-  	  width: 100px;
-	}
-	.col-product-20pk {
-  	  width: 100px;
-	}
-	.col-product-effect {
-  	  width: 100px;
-	}
-	
+    /* If you want only the first column colored (keep prices white), uncomment:
+    tr.sativa td:not(:first-child),
+    tr.indica td:not(:first-child),
+    tr.hybrid td:not(:first-child),
+    tr.cbd td:not(:first-child) { color:#fff; }
+    */
   </style>
 </head>
 <body>
+  <!-- ===== Concentrates ===== -->
   <div class="menu-section">
-  <div class="menu-title">
-    <img src="/screenthree/images/concentrates-title.png" alt="Concentrates" class="menu-title-image" />
-  </div>
+    <div class="menu-title">
+      <img src="images/concentrates-title.png" alt="Concentrates" class="menu-title-image" />
+    </div>
     <div class="menu-subtitle">Solventless Dabs & Kief</div>
+
+    <!-- Color Legend -->
+    <div style="margin:20px 0 20px 0;font-size:.95em;opacity:.85;font-weight:700;">
+      <span style="display:inline-block;width:.7em;height:.7em;background:#FFC600;border-radius:50%;vertical-align:middle;margin-right:.35em"></span>Sativa
+      &nbsp;•&nbsp;
+      <span style="display:inline-block;width:.7em;height:.7em;background:#00AB84;border-radius:50%;vertical-align:middle;margin:0 .35em 0 .7em"></span>Indica
+      &nbsp;•&nbsp;
+      <span style="display:inline-block;width:.7em;height:.7em;background:#F87666;border-radius:50%;vertical-align:middle;margin:0 .35em 0 .7em"></span>Hybrid
+      &nbsp;•&nbsp;
+      <span style="display:inline-block;width:.7em;height:.7em;background:#3A82F7;border-radius:50%;vertical-align:middle;margin:0 .35em 0 .7em"></span>CBD
+    </div>
+
     <table class="menu-table" id="concentrate-table">
       <thead>
         <tr>
           <th class="col-concentrate-description">Products</th>
           <th class="col-concentrate-total">Total</th>
           <th class="col-concentrate-gram">Gram</th>
-          <th class="col-flower-effect">Effect</th>
+          <!-- Effect column removed; color driven by Effect value -->
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
 
+  <!-- ===== Edibles ===== -->
   <div class="menu-section">
-  <div class="menu-title">
-    <img src="/screenthree/images/edibles-title.png" alt="Edibles" class="menu-title-image" />
-  </div>
+    <div class="menu-title">
+      <img src="images/edibles-title.png" alt="Edibles" class="menu-title-image" />
+    </div>
     <div class="menu-subtitle">Chocolates and Gummies</div>
+
+    <!-- Color Legend (optional for Edibles too) -->
+    <div style="margin:20px 0 20px 0;font-size:.95em;opacity:.85;font-weight:700;">
+      <span style="display:inline-block;width:.7em;height:.7em;background:#FFC600;border-radius:50%;vertical-align:middle;margin-right:.35em"></span>Sativa
+      &nbsp;•&nbsp;
+      <span style="display:inline-block;width:.7em;height:.7em;background:#00AB84;border-radius:50%;vertical-align:middle;margin:0 .35em 0 .7em"></span>Indica
+      &nbsp;•&nbsp;
+      <span style="display:inline-block;width:.7em;height:.7em;background:#F87666;border-radius:50%;vertical-align:middle;margin:0 .35em 0 .7em"></span>Hybrid
+      &nbsp;•&nbsp;
+      <span style="display:inline-block;width:.7em;height:.7em;background:#3A82F7;border-radius:50%;vertical-align:middle;margin:0 .35em 0 .7em"></span>CBD
+    </div>
+
     <table class="menu-table" id="product-table">
       <thead>
         <tr>
           <th class="col-product-description">Products</th>
           <th class="col-product-10pk">10pk</th>
           <th class="col-product-20pk">20pk</th>
-          <th class="col-product-effect">Effect</th>
+          <!-- Effect column removed; color driven by Effect value -->
         </tr>
       </thead>
       <tbody></tbody>
@@ -132,37 +120,67 @@
       const response = await fetch(url);
       const text = await response.text();
 
-      const rows = text.trim().split('\n').map(row => row.split(','));
+      const rows = text.trim().split(/\r?\n/).map(row => row.split(','));
       const headers = rows[0];
       const data = rows.slice(1).map(row =>
         Object.fromEntries(row.map((val, i) => [headers[i].trim(), val.trim()]))
       );
 
-      const flowerTable = document.querySelector('#concentrate-table tbody');
-      const productTable = document.querySelector('#product-table tbody');
+      const concentrateTbody = document.querySelector('#concentrate-table tbody');
+      const productTbody = document.querySelector('#product-table tbody');
 
-      const formatPrice = (value) => value ? `$${value}` : '';
+      const formatPrice   = (value) => value ? `$${value}` : '';
       const formatPercent = (value) => value ? `${value}%` : '';
+
+      /* :token: -> logo path (relative to /screenthree-a/) */
+      const ICONS = {
+        ethos: 'images/ethos.svg?v=1',
+        cbd:   'images/cbd.svg?v=1',
+        // add more: artist: 'images/artist.svg?v=1',
+      };
+
+      /* Replace :token: with inline <img>; leave unknown tokens unchanged */
+      function renderWithIcons(text) {
+        if (!text) return '';
+        return text.replace(/\:([a-z0-9_-]+)\:/gi, (m, name) => {
+          const key = name.toLowerCase();
+          const src = ICONS[key];
+          if (!src) return m;
+          return `<img class="logo-icon" src="${src}" alt="" aria-label="${key}"
+                   loading="lazy" decoding="async"
+                   onerror="this.replaceWith(document.createTextNode(':${key}:'))">`;
+        });
+      }
+
+      /* Only look at the Effect column for designation */
+      function getEffectClassFromEffect(effectText) {
+        const e = (effectText || '').toLowerCase();
+        if (e.includes('cbd'))    return 'cbd';
+        if (e.includes('sativa')) return 'sativa';
+        if (e.includes('indica')) return 'indica';
+        if (e.includes('hybrid')) return 'hybrid';
+        return '';
+      }
 
       data.forEach(row => {
         if (row.Type === 'Concentrate') {
           const tr = document.createElement('tr');
+          tr.className = getEffectClassFromEffect(row.Effect);
           tr.innerHTML = `
-            <td>${row.Concentrate}</td>
+            <td>${renderWithIcons(row.Concentrate)}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Gram)}</td>
-            <td>${row.Effect}</td>
           `;
-          flowerTable.appendChild(tr);
+          concentrateTbody.appendChild(tr);
         } else if (row.Type === 'Product') {
           const tr = document.createElement('tr');
+          tr.className = getEffectClassFromEffect(row.Effect);
           tr.innerHTML = `
-            <td>${row.Description}</td>
+            <td>${renderWithIcons(row.Description)}</td>
             <td>${formatPrice(row["10pk"])}</td>
             <td>${formatPrice(row["20pk"])}</td>
-            <td>${row.Effect}</td>
           `;
-          productTable.appendChild(tr);
+          productTbody.appendChild(tr);
         }
       });
     }
