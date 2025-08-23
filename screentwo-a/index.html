@@ -57,9 +57,8 @@
     <div class="menu-title">
       <img src="images/cartridges-title.png" alt="Cartridges" class="menu-title-image" />
     </div>
-    <!-- <div class="menu-subtitle">.5 Gram Cartridge Selection</div> -->
 
-    <!-- Color Legend (optional) -->
+    <!-- Color Legend -->
     <div style="margin:20px 0 20px 0;font-size:.95em;opacity:.85;font-weight:700;">
       <span style="display:inline-block;width:.7em;height:.7em;background:#FFC600;border-radius:50%;vertical-align:middle;margin-right:.35em"></span>Sativa
       &nbsp;•&nbsp;
@@ -88,7 +87,6 @@
     <div class="menu-title">
       <img src="images/essentials-title.png" alt="Essentials" class="menu-title-image" />
     </div>
-    <!-- <div class="menu-subtitle">Fast Acting and Medicinal</div> -->
 
     <table class="menu-table" id="preroll-table">
       <thead>
@@ -167,9 +165,10 @@
           cartridgeTable.appendChild(tr);
         }
 
-        // Essentials table (Tincture / Salve / FSO)
+        // Essentials table (Tincture / Salve / FSO) — now colored by Effect and supports tokens
         if (['Tincture', 'Salve', 'FSO'].includes(row.Type)) {
           const tr = document.createElement('tr');
+          tr.className = getEffectClassFromEffect(row.Effect);  // <-- color by Effect
           tr.innerHTML = `
             <td>${renderWithIcons(row.Name)}</td>
             <td>${formatMilligram(row.THC)}</td>
