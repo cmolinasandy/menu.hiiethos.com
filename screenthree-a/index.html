@@ -43,12 +43,20 @@
       margin-right: 0.1em;
     }
 
-    /* If you want only the first column colored (keep prices white), uncomment:
+    /* Optional: keep only first column colored
     tr.sativa td:not(:first-child),
     tr.indica td:not(:first-child),
     tr.hybrid td:not(:first-child),
     tr.cbd td:not(:first-child) { color:#fff; }
     */
+
+    /* In-table section headers */
+    .section-row td {
+      font-weight: 700;
+      color: #fff;
+      padding-top: 14px;
+      border-top: 1px solid #444;
+    }
   </style>
 </head>
 <body>
@@ -57,7 +65,6 @@
     <div class="menu-title">
       <img src="images/concentrates-title.png" alt="Concentrates" class="menu-title-image" />
     </div>
-    <!-- <div class="menu-subtitle">Solventless Dabs & Kief</div> -->
 
     <!-- Color Legend -->
     <div style="margin:20px 0 20px 0;font-size:.95em;opacity:.85;font-weight:700;">
@@ -88,7 +95,6 @@
     <div class="menu-title">
       <img src="images/edibles-title.png" alt="Edibles" class="menu-title-image" />
     </div>
-    <!-- <div class="menu-subtitle">Chocolates and Gummies</div> -->
 
     <!-- Color Legend (optional for Edibles too) -->
     <div style="margin:20px 0 20px 0;font-size:.95em;opacity:.85;font-weight:700;">
@@ -162,12 +168,39 @@
         return '';
       }
 
+      /* helper to drop section headers inside tbody */
+      function appendSectionRow(tbody, label, colSpan) {
+        const tr = document.createElement('tr');
+        tr.className = 'section-row';
+        tr.innerHTML = `<td colspan="${colSpan}">${label}</td>`;
+        tbody.appendChild(tr);
+      }
+
+      let fsoHeaderInserted = false;
+      let hashHeaderInserted = false;
+
       data.forEach(row => {
         if (row.Type === 'Concentrate') {
+          const name = row.Concentrate || '';
+          const lower = name.toLowerCase();
+
+          // Insert "Full Spectrum Oil" above the first FSO item
+          if (!fsoHeaderInserted && /^fso\b/i.test(name)) {
+            appendSectionRow(concentrateTbody, 'Full Spectrum Oil', 3);
+            fsoHeaderInserted = true;
+          }
+
+          // Insert "Hash and Kief" above the first matching item
+          const isHashKief = /\bkief\b/i.test(lower) || /bubble\s*hash/i.test(lower) || /dry\s*sift/i.test(lower);
+          if (!hashHeaderInserted && isHashKief) {
+            appendSectionRow(concentrateTbody, 'Hash and Kief', 3);
+            hashHeaderInserted = true;
+          }
+
           const tr = document.createElement('tr');
           tr.className = getEffectClassFromEffect(row.Effect);
           tr.innerHTML = `
-            <td>${renderWithIcons(row.Concentrate)}</td>
+            <td>${renderWithIcons(name)}</td>
             <td>${formatPercent(row.Total)}</td>
             <td>${formatPrice(row.Gram)}</td>
           `;
